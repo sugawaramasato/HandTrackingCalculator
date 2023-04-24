@@ -1,0 +1,2 @@
+# HandTrackingCalculator
+ハンドトラッキングを使って簡単な計算ができるプログラム
