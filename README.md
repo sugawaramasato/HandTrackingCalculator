@@ -11,8 +11,10 @@ mp_hands = mp.solutions.hands
 
 video = cv2.VideoCapture(0)
 
+#入力した数字
 num = 0
 
+#以下の"o数字"は読み込んだ直近9回の数字を記録する変数。初期状態は指で入力できない0.1とした
 o1 = 0.1
 o2 = 0.1
 o3 = 0.1
@@ -23,14 +25,16 @@ o7 = 0.1
 o8 = 0.1
 o9 = 0.1
 
-flag0 = 0
-flag1 = 0
-flag2 = 0
-flag3 = 0
-flag4 = 0
-flag5 = 0
-flag6 = 0
+#各ステップを検知するフラグ
+flag0 = 0 #リセットコマンドが使用されたら１になるフラグ
+flag1 = 0 #一つ目の数字が入力されたら１に、入力内容を表示したら２になるフラグ
+flag2 = 0 #一つ目の数字が確定されたら１に、計算記号を決定したら２になるフラグ
+flag3 = 0 #計算記号が決定されると１に、二つ目の数字が入力されたら２に、入力内容を表示したら３になるフラグ
+flag4 = 0 #二つ目の数字が確定されたら１に、計算を実行したら２になるフラグ
+flag5 = 0 #計算を実行する時に１になるフラグ
+flag6 = 0 #計算結果を表示したら１になり、以降リセットコマンドを使用するまで操作を受け付けなくするフラグ
 
+#計算記号を記録する変数。初期状態であるか否かで分岐したいため初期状態を定義する
 box2 = 0
 
 continue_message = "\n(please LEFT FIST for CONTINUE!!!)"
@@ -57,7 +61,7 @@ with mp_hands.Hands(
                 mp_drawing.draw_landmarks(image, hand_landmark, mp_hands.HAND_CONNECTIONS)
             if len(lmList)!=0:
 
-                #左右
+                #左右を親指の位置で判別する
                 
                 if lmList[5][1] > lmList[13][1]:
                     num0 = 1
